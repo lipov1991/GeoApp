@@ -18,4 +18,6 @@ class AuthViewModel(
     fun signUp() {
         // TODO
     }
+
 }
+
