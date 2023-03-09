@@ -15,11 +15,13 @@ import com.esri.arcgisruntime.mapping.ArcGISMap
 import com.esri.arcgisruntime.mapping.BasemapStyle
 import com.esri.arcgisruntime.mapping.Viewpoint
 import com.esri.arcgisruntime.mapping.view.MapView
+import com.esri.arcgisruntime.ogc.wms.WmsService
 
 class MapFragment : Fragment() {
 
     val mapView: MapView? = null
 
+    // wstrzykiwanie viemodela (on jest do logiki biznesowej)
     private val viewModel: MapViewModel by viewModel()
 
 
@@ -33,6 +35,7 @@ class MapFragment : Fragment() {
         setApiKeyForApp()
         setupMap()
 
+        // nowe
 
 
     }
