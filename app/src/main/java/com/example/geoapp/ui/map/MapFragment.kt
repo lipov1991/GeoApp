@@ -35,8 +35,6 @@ class MapFragment : Fragment() {
         setApiKeyForApp()
         setupMap()
 
-        // nowe
-
 
     }
     private fun setupMap() {
