@@ -39,8 +39,18 @@ class MapFragment : Fragment() {
     }
     private fun setupMap() {
 
+        val featureLayer = com.esri.arcgisruntime.ogc.wfs.WfsFeatureTable("https://audiomapa-c055e-default-rtdb.firebaseio.com/InteriorSpace_Merge.json", "nazwaTabeli")
+
+        // jak wyprintowac czy poprawnie pobralo wfs'a?
+        featureLayer.layerInfo // jak printnac?
+
+
+        val layer = com.esri.arcgisruntime.layers.FeatureLayer(featureLayer)
+
         // create a map with the BasemapStyle streets
         val map = ArcGISMap(BasemapStyle.ARCGIS_TOPOGRAPHIC)
+        // dodanie wfs'a
+        map.operationalLayers.add(layer)
 
         // set the map to be displayed in the layout's MapView
         val mapView = view?.findViewById<MapView>(R.id.mapView)
@@ -49,7 +59,11 @@ class MapFragment : Fragment() {
         // set the viewpoint, Viewpoint(latitude, longitude, scale)
         mapView?.setViewpoint(Viewpoint(52.2205593, 21.0101898, 5000.0))
 
+
+
     }
+
+
 
     override fun onPause() {
         mapView?.pause()
