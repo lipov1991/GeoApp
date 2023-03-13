@@ -4,16 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/fake_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="EKRAN LOGOWANIA" />
-
-    <Button
-        android:id="@+id/sign_in_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="ZALOGUJ" />
+        android:text="TU BĘDZIE MAPA" />
 
 </FrameLayout>
