@@ -47,4 +47,8 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.3.3"
     // implement ArcGIS Maps SDK for Kotlin
     implementation 'com.esri.arcgisruntime:arcgis-android:100.15.0'
+    // for adding recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    // for adding cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

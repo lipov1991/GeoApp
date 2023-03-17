@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.geoapp.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,8 +19,20 @@ import com.esri.arcgisruntime.mapping.BasemapStyle
 import com.esri.arcgisruntime.mapping.Viewpoint
 import com.esri.arcgisruntime.mapping.view.MapView
 import com.esri.arcgisruntime.ogc.wms.WmsService
+import com.example.geoapp.data.repository.Floor
+
 
 class MapFragment : Fragment() {
+
+    // po konsultacjach
+
+    private val floorLevels = listOf(
+        Floor("1", true),
+        Floor("2", false),
+        Floor("3", false),
+        Floor("4", false)
+
+    )
 
     val mapView: MapView? = null
 
@@ -35,22 +50,29 @@ class MapFragment : Fragment() {
         setApiKeyForApp()
         setupMap()
 
+        // tutaj sie psuje
+        binding?.floorLeveLSelectionList?.adapter = FloorAdapter(floorLevels)
+
+        setupList()
+
+
+    }
+
+    private fun setupList(){
+        val data = listOf("pietro 1", "pietro 2", "pietro 3", "pietro 4")
+
+
+
 
     }
     private fun setupMap() {
 
-        val featureLayer = com.esri.arcgisruntime.ogc.wfs.WfsFeatureTable("https://audiomapa-c055e-default-rtdb.firebaseio.com/InteriorSpace_Merge.json", "nazwaTabeli")
-
-        // jak wyprintowac czy poprawnie pobralo wfs'a?
-        featureLayer.layerInfo // jak printnac?
 
 
-        val layer = com.esri.arcgisruntime.layers.FeatureLayer(featureLayer)
+
 
         // create a map with the BasemapStyle streets
         val map = ArcGISMap(BasemapStyle.ARCGIS_TOPOGRAPHIC)
-        // dodanie wfs'a
-        map.operationalLayers.add(layer)
 
         // set the map to be displayed in the layout's MapView
         val mapView = view?.findViewById<MapView>(R.id.mapView)
