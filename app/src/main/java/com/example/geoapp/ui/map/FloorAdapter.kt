@@ -7,7 +7,7 @@ import com.example.geoapp.R
 import com.example.geoapp.data.repository.Floor
 
 class FloorAdapter(
-    private val floors: List<Floor>
+    private var floors: List<Floor>
 
 ): RecyclerView.Adapter<FloorViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FloorViewHolder =
@@ -21,5 +21,10 @@ class FloorAdapter(
         holder.FloorNameTextView.text = floor.name
     }
 
+    fun setData(floors: List<Floor>){
+        this.floors = floors
+        notifyDataSetChanged()
+
+    }
 
 }

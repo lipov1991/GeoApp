@@ -51,7 +51,10 @@ class MapFragment : Fragment() {
         setupMap()
 
         // tutaj sie psuje
-        binding?.floorLeveLSelectionList?.adapter = FloorAdapter(floorLevels)
+        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
+
+
+        //binding?.floorLeveLSelectionList?.adapter = FloorAdapter(floorLevels)
 
         setupList()
 

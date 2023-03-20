@@ -30,11 +30,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="60dp"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+        tools:itemCount="4"
         tools:listitem="@layout/item_floor"
         tools:ignore="MissingConstraints" />
 
