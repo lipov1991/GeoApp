@@ -1,5 +1,16 @@
 package com.example.geoapp.domain.utils
 
+
+data class Router(
+    val name: String,
+    val signal_strength: Double
+) {}
+
+data class Room(
+    val name: String,
+    val routers: List<Router>
+) {}
+
 data class Fingerprint(
     val bssid: String,
     val signal_level: Double,
@@ -15,19 +26,22 @@ class LocationHandler(
 ) {
     var grouped_data = hashMapOf<String, Any?>();
 
-    fun group_measurements() {
-        for (measurement in historicFingerprints) {
-            if (!grouped_data.containsKey(measurement.room_name)) {
-                grouped_data.put(measurement.room_name, hashMapOf<String, Any?>())
-            }
-
-            if (!grouped_data[measurement.room_name].containsKey(measurement.bssid)) {
-                grouped_data[measurement.room_name].put(measurement.bssid, mutableListOf<Fingerprint>())
-            }
-
-            grouped_data.get(measurement.room_name).get(measurement.bssid).add(measurement)
-        }
-    }
+//    fun group_measurements() {
+//        for (measurement in historicFingerprints) {
+//            if (!grouped_data.containsKey(measurement.room_name)) {
+//                grouped_data.put(measurement.room_name, hashMapOf<String, Any?>())
+//            }
+//
+//            if (!grouped_data[measurement.room_name].containsKey(measurement.bssid)) {
+//                grouped_data[measurement.room_name].put(
+//                    measurement.bssid,
+//                    mutableListOf<Fingerprint>()
+//                )
+//            }
+//
+//            grouped_data.get(measurement.room_name).get(measurement.bssid).add(measurement)
+//        }
+//    }
 
     fun get_average_measurement_from_directions(measurements: List<PointFingerprints>): Double {
         """
