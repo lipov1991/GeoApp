@@ -27,10 +27,10 @@ class MapFragment : Fragment() {
     // po konsultacjach
 
     private val floorLevels = listOf(
-        Floor("1", true),
-        Floor("2", false),
-        Floor("3", false),
-        Floor("4", false)
+        Floor("Piętro 1", true, "url:pietro_1"),
+        Floor("Piętro 2", false, "url:pietro_2"),
+        Floor("Piętro 3", false, "url:pietro_3"),
+        Floor("Piętro 4", false, "url:pietro_4")
 
     )
 

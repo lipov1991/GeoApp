@@ -1,4 +1,5 @@
 package com.example.geoapp.ui.map
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,13 @@ class FloorAdapter(
     private var floors: List<Floor>
 
 ): RecyclerView.Adapter<FloorViewHolder>() {
+
+
+    // obsluga klikniecia
+
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FloorViewHolder =
         FloorViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_floor, parent, false))
 
@@ -17,8 +25,12 @@ class FloorAdapter(
 
     override fun onBindViewHolder(holder: FloorViewHolder, position: Int) {
         val floor = floors[position]
-
         holder.FloorNameTextView.text = floor.name
+        holder.itemView.setOnClickListener {
+            // tutaj jakis print, floor.name, czy tam wms
+            Log.d("CLICK", floor.name)
+
+        }
     }
 
     fun setData(floors: List<Floor>){

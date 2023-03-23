@@ -8,4 +8,6 @@ import com.example.geoapp.R
 class FloorViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val FloorNameTextView: TextView = view.findViewById(R.id.floor_name_text_view)
 
+
+
 }
