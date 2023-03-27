@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.geoapp.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,6 +15,8 @@ class AuthFragment : Fragment() {
 
     private val viewModel: AuthViewModel by viewModel()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
+            View =
         inflater.inflate(R.layout.fragment_login, container, false)
+
 }

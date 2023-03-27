@@ -3,17 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="110dp"
-        android:layout_gravity="center"
-        android:text="EKRAN LOGOWANIA"/>
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
+<!--    <Button-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="110dp"-->
 <!--        android:layout_gravity="center"-->
-<!--        android:text="EKRAN LOGOWANIA" />-->
+<!--        android:text="EKRAN LOGOWANIA"/>-->
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:text="NAME: Jan" />
+    <TextView
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="60dp"
+        android:text="FRIENDS: 420" />
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="90dp"
+        android:text="EMAIL: jan.kowalski@gmail.com" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="120dp"/>
+
 
 
 
