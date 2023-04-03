@@ -17,21 +17,21 @@
         android:textStyle="bold"
         android:layout_marginTop="30dp"
         android:text="NAME: Jan" />
-    <TextView
-        android:id="@+id/friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:layout_marginTop="60dp"
-        android:text="FRIENDS: 420" />
+<!--    <TextView-->
+<!--        android:id="@+id/friends"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        android:text="FRIENDS: 420" />-->
     <TextView
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="60dp"
         android:text="EMAIL: jan.kowalski@gmail.com" />
 
     <com.facebook.login.widget.LoginButton

@@ -28,21 +28,8 @@ class MainActivity : AppCompatActivity() {
     private val authviewmodel: AuthViewModel by viewModel()
     private lateinit var loginButton: LoginButton
     private lateinit var usernameTextView: TextView
-    private lateinit var friendsTextView: TextView
     private lateinit var emailTextView: TextView
     lateinit var callbackManager: CallbackManager
-
-    private fun getFacebookData(obj: JSONObject?) {
-        val name = obj?.getString("name")
-        val email = obj?.getString("email")
-        val totalcount = obj?.getJSONObject("friends")?.getJSONObject("summary")?.getString("total_count")
-//        print(obj)
-//        println(name)
-//        println(totalcount)
-        usernameTextView.text = "NAME: ${name} "
-        emailTextView.text = "EMAIL: ${email} "
-        friendsTextView.text = "NO. FRIENDS: ${totalcount} "
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +37,13 @@ class MainActivity : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
         loginButton = findViewById(R.id.login_button)
         usernameTextView = findViewById(R.id.username_text_view)
-        friendsTextView = findViewById(R.id.friends)
         emailTextView = findViewById(R.id.email)
         loginButton.setReadPermissions("email")
         loginButton.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
 
             override fun onCancel() {
-                Log.d(TAG, "Login canceled") //nie dziala
+                Log.d(TAG, "Login canceled")
             }
 
             override fun onError(error: FacebookException) {
@@ -66,16 +52,20 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSuccess(result: LoginResult) {
                 Log.d(TAG, "Facebook login success. Access token: ${result.accessToken}")
-                val graphRequest =
+                val request =
                     GraphRequest.newMeRequest(result.accessToken) { jsonObject, response ->
                         Log.d(TAG, "jsonObject: ${jsonObject.toString()}")
                         Log.d(TAG, "response: ${response.toString()}")
-                        getFacebookData(jsonObject)
+                        val email = jsonObject?.optString("email")
+                        val name = jsonObject?.optString("name")
+                        Log.d(TAG, "User info: email: $email; name: $name; error: ${response?.error}")
+                        usernameTextView.text = "NAME: ${name} "
+                        emailTextView.text = "EMAIL: ${email} "
                     }
                 val parameters = Bundle()
-                parameters.putString("fields", "id,email")
-                graphRequest.parameters = parameters
-                graphRequest.executeAsync()
+                parameters.putString("fields", "id,name,email")
+                request.parameters = parameters
+                request.executeAsync()
             }
         })
 
