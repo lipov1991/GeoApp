@@ -4,4 +4,10 @@
     <string name="label_username">Nazwa użytkownika</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="facebook_app_id">3463572060595482</string>
+    <string name="fb_login_protocol_scheme">fb3463572060595482</string>
+    <string name="facebook_client_token">a4557f5cc103da4e6103a8f5df7078c8</string>
+
+
 </resources>
