@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.geoapp.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment
+import com.esri.arcgisruntime.data.ServiceFeatureTable
+import com.esri.arcgisruntime.layers.FeatureLayer
 import com.esri.arcgisruntime.mapping.ArcGISMap
 import com.esri.arcgisruntime.mapping.BasemapStyle
 import com.esri.arcgisruntime.mapping.Viewpoint
@@ -49,7 +50,7 @@ class MapFragment : Fragment() {
         //viewModel.locateUser()
         setApiKeyForApp()
         setupMap()
-
+        loadFeatureServiceURL()
         // tutaj sie psuje
         view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
 
@@ -103,6 +104,16 @@ class MapFragment : Fragment() {
     override fun onDestroy() {
         mapView?.dispose()
         super.onDestroy()
+    }
+
+    private fun loadFeatureServiceURL() {
+        // initialize the service feature table using a URL
+        val serviceFeatureTable =
+            ServiceFeatureTable(resources.getString(R.string.pietro2_pomieszczenia))
+        // create a feature layer with the feature table
+        val featureLayer = FeatureLayer(serviceFeatureTable)
+        // set the feature layer on the map
+        view?.findViewById<MapView>(R.id.mapView)?.map?.operationalLayers?.add(featureLayer)
     }
 
     private fun setApiKeyForApp() {
