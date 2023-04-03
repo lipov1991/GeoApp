@@ -52,12 +52,6 @@ dependencies {
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
+    // Jak to usunę to kod nie działa
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
-    //motywy?
-    implementation 'com.google.android.material:material:<version>'
-
-    //facebook sdk
-    implementation 'com.facebook.android:facebook-login:latest.release'
 }

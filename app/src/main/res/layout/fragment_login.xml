@@ -69,7 +69,7 @@
         android:layout_margin="100dp"
         android:layout_marginTop="100dp"
         android:background="@android:drawable/dialog_holo_light_frame"
-        android:backgroundTint="@color/com_facebook_blue"
+        android:backgroundTint="@color/fbblue"
         android:text="Facebook"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
