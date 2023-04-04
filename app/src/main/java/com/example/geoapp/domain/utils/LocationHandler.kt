@@ -30,7 +30,7 @@ class LocationHandler(
     val historicFingerprints: List<Fingerprint>,
     val pointsFingerprints: List<PointFingerprints>
 ) {
-    private var fingerprints: List<Router> = mutableListOf();
+    var fingerprints: MutableList<Router> = mutableListOf();
 
     //TODO grupowanie pomiarów
     //Co kazde klikniecie dostajemy pomiary do wszystkich routerów z danego kierunku, np. north
@@ -73,7 +73,7 @@ class LocationHandler(
              Router(name='3', 'signal_strength=14),
             ]
         """.trimIndent()
-        this.fingerprints = this.fingerprints.sortedWith(compareBy {it.name});
+        this.fingerprints = this.fingerprints.sortedWith(compareBy {it.name}).toMutableList();
     }
 
     fun get_average_router_signal(routers: List<Router>): Double {
