@@ -1,5 +1,6 @@
 package com.example.geoapp.domain.utils
 
+import com.example.geoapp.domain.utils.TestData. *
 import kotlin.math.abs
 
 
@@ -22,7 +23,7 @@ data class Fingerprint(
 
 data class PointFingerprints(val bssid: String, val signal_level: Double, val direction: Int = 0) {}
 
-data class AverageSignalStrength(val bssid:String, val average_signal_level: Double) {}
+data class AverageSignalStrength(val room_name: String, val bssid:String, val average_signal_level: Double) {}
 
 data class TempMin(var room_name: String, var min: Double) {}
 
@@ -114,6 +115,22 @@ class LocationHandler(
 //        }
 
         return result
+    }
+
+    fun create_AverageSignalStrength(routers: List<Router>): List<AverageSignalStrength> {
+        var rooms: List<Room> = TestData().get_testRooms();
+        var averageSignalStrengthList: MutableList<AverageSignalStrength> = mutableListOf();
+        for (router in routers) {
+            for (room in rooms) {
+                for (historic_router in room.routers) {
+                    if (historic_router.name == router.name) {
+                        val tmp_averageSignal = AverageSignalStrength(room.name, router.name, router.signal_strength)
+                        averageSignalStrengthList.add(tmp_averageSignal);
+                    }
+                }
+            }
+        }
+        return averageSignalStrengthList.toList();
     }
 
 
