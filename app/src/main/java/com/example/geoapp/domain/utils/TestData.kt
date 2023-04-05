@@ -2,15 +2,15 @@ package com.example.geoapp.domain.utils
 
 class TestData {
     val testFingerprint: List<Fingerprint> = listOf(
-        Fingerprint("Router_1_1", 1.0, "room_1", 0),
-        Fingerprint("Router_1_2", 1.0, "room_1", 0),
-        Fingerprint("Router_1_3", 1.0, "room_1", 0),
-        Fingerprint("Router_2_1", 1.0, "room_2", 0),
-        Fingerprint("Router_2_2", 1.0, "room_2", 0),
-        Fingerprint("Router_2_3", 1.0, "room_2", 0),
-        Fingerprint("Router_3_1", 1.0, "room_3", 0),
-        Fingerprint("Router_3_2", 1.0, "room_3", 0),
-        Fingerprint("Router_3_3", 1.0, "room_3", 0)
+        Fingerprint("Router_1_1", 95.0, "room_1", 0),
+        Fingerprint("Router_1_2", 65.0, "room_1", 0),
+        Fingerprint("Router_1_3", 80.0, "room_1", 0),
+        Fingerprint("Router_2_1", 60.0, "room_2", 0),
+        Fingerprint("Router_2_2", 64.0, "room_2", 0),
+        Fingerprint("Router_2_3", 84.0, "room_2", 0),
+        Fingerprint("Router_3_1", 70.0, "room_3", 0),
+        Fingerprint("Router_3_2", 80.0, "room_3", 0),
+        Fingerprint("Router_3_3", 73.2, "room_3", 0)
     )
 
     private val testRooms: List<Room> = listOf(

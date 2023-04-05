@@ -12,7 +12,7 @@ data class Router(
 
 data class Room(
     val name: String,
-    val routers: List<Router>
+    var routers: List<Router>? = null
 ) {}
 
 data class Fingerprint(
@@ -29,12 +29,14 @@ data class AverageSignalStrength(val bssid:String, val average_signal_level: Dou
 data class TempMin(var room_name: String, var min: Double) {}
 
 class LocationHandler(
-    val historicFingerprints: List<Fingerprint>,
-    val pointsFingerprints: List<PointFingerprints>
+    private val historicFingerprints: List<Fingerprint>,
+    private val pointsFingerprints: List<PointFingerprints>
 ) {
     var fingerprints: MutableList<Router> = mutableListOf();
+    var rooms: List<Room> = listOf();
     init {
         this.add_fingerprints_from_one_direction(pointsFingerprints)
+        this.load_historic_fingerprints();
     }
 
     //TODO grupowanie pomiarów
@@ -44,6 +46,28 @@ class LocationHandler(
     //Utworzyć AverageSignalStrength(nazwa pokoju, średnia wartość do routera z tego pokoju)
     //Wyliczyć dystans funkcją (calculate_distance) - zmienić na euclidean distance
     //Zwracamy nazwę pokoju
+
+    fun load_historic_fingerprints() {
+        var rooms_tmp: MutableList<Room> = mutableListOf();
+
+        // add rooms
+        for (historic_fingerprint in historicFingerprints) {
+            if (!rooms_tmp.contains(Room(historic_fingerprint.room_name))) {
+                rooms_tmp.add(Room(historic_fingerprint.room_name))
+            }
+        }
+
+        for (room in rooms_tmp) {
+            var routers: MutableList<Router> = mutableListOf();
+            for (historic_fingerprint in historicFingerprints) {
+                if (historic_fingerprint.room_name == room.name) {
+                    routers.add(Router(historic_fingerprint.bssid, historic_fingerprint.signal_level));
+                }
+            }
+            room.routers = routers;
+        }
+        rooms = rooms_tmp.toList();
+    }
 
     fun add_fingerprints_from_one_direction(measurements: List<PointFingerprints>) {
         """
@@ -160,7 +184,7 @@ class LocationHandler(
         var min = TempMin("0", 1000000.0)
         for(average_measurement in average_measurements) {
             for(room in Rooms){
-                for(router in room.routers){
+                for(router in room.routers!!){
                     if(router.name == average_measurement.bssid){
                         var temp = abs(average_measurement.average_signal_level - router.signal_strength)
                         if(temp < min.min){

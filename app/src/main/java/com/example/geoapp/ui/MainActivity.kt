@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         var test = TestData();
         var obj = LocationHandler(test.get_Fingerprints(), test.get_PointFingerprints())
+
         Log.d("TestData", String.format("Not sorted fingerprints: %s", obj.fingerprints));
 
         obj.sort_fingerprints();
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("TestData", String.format("Average Fingerprints: %s", obj.get_average_router_per_4_directions()));
         var grouped_routers: List<AverageSignalStrength> = obj.get_average_router_per_4_directions();
-        var closest_room: String = obj.calculate_distance(grouped_routers, TestData().get_testRooms())
+        var closest_room: String = obj.calculate_distance(grouped_routers, obj.rooms)
         Log.d("TestData", String.format("Najblizszy pokój: %s", closest_room));
 
     }
