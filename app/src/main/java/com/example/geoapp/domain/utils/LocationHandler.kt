@@ -1,5 +1,6 @@
 package com.example.geoapp.domain.utils
 
+import android.util.Log
 import com.example.geoapp.domain.utils.TestData. *
 import kotlin.math.abs
 
@@ -23,7 +24,7 @@ data class Fingerprint(
 
 data class PointFingerprints(val bssid: String, val signal_level: Double, val direction: Int = 0) {}
 
-data class AverageSignalStrength(val room_name: String, val bssid:String, val average_signal_level: Double) {}
+data class AverageSignalStrength(val bssid:String, val average_signal_level: Double) {}
 
 data class TempMin(var room_name: String, var min: Double) {}
 
@@ -80,7 +81,7 @@ class LocationHandler(
         this.fingerprints = this.fingerprints.sortedWith(compareBy {it.name}).toMutableList();
     }
 
-    fun get_average_router_per_4_directions(): List<Router> {
+    fun get_average_router_per_4_directions(): List<AverageSignalStrength> {
         """
             funkcja do wyliczenia sredniej dla routerów. 
             Aby działała trzeba wczytać dane a następnie je posortować
@@ -94,8 +95,9 @@ class LocationHandler(
             Router(router2, 11.0)
             Router(router2, 41.0)
             Router(router2, 14.0)
+           
         """.trimIndent()
-        val result = mutableListOf<Router>()
+        val result = mutableListOf<AverageSignalStrength>()
         var sum = 0.0
         var count = 0
 
@@ -104,33 +106,28 @@ class LocationHandler(
             count++
 
             if (count == 4) {
-                result.add(Router(name = this.fingerprints[i].name, signal_strength = sum / 4))
+                result.add(AverageSignalStrength(this.fingerprints[i].name, sum / 4))
                 sum = 0.0
                 count = 0
             }
         }
-
-//        if (count > 0) {
-//            result.add(sum / count)
-//        }
-
         return result
     }
 
-    fun create_AverageSignalStrength(routers: List<Router>): List<AverageSignalStrength> {
-        var rooms: List<Room> = TestData().get_testRooms();
-        var averageSignalStrengthList: MutableList<AverageSignalStrength> = mutableListOf();
-        for (router in routers) {
-            for (room in rooms) {
-                for (historic_router in room.routers) {
-                    if (historic_router.name == router.name) {
-                        val tmp_averageSignal = AverageSignalStrength(room.name, router.name, router.signal_strength)
-                        averageSignalStrengthList.add(tmp_averageSignal);
-                    }
-                }
-            }
-        }
-        return averageSignalStrengthList.toList();
+    fun create_AverageSignalStrength(routers: List<Router>) {
+//        var rooms: List<Room> = TestData().get_testRooms();
+//        var averageSignalStrengthList: MutableList<AverageSignalStrength> = mutableListOf();
+//        for (router in routers) {
+//            for (room in rooms) {
+//                for (historic_router in room.routers) {
+//                    if (historic_router.name == router.name) {
+//                        val tmp_averageSignal = AverageSignalStrength(room.name, router.name, router.signal_strength)
+//                        averageSignalStrengthList.add(tmp_averageSignal);
+//                    }
+//                }
+//            }
+//        }
+//        return averageSignalStrengthList.toList();
     }
 
 
@@ -156,19 +153,26 @@ class LocationHandler(
         return average_value / measurements.size;
     }
 
-    fun calculate_distance(average_measurement: AverageSignalStrength, Rooms: List<Room>): String {
-        var min = TempMin("0", -1.0)
-        for(room in Rooms){
-            for(router in room.routers){
-                if(router.name == average_measurement.bssid){
-                    var temp = abs(average_measurement.average_signal_level - router.signal_strength)
-                    if(temp < min.min){
-                        min.room_name = room.name;
-                        min.min = temp;
+    fun calculate_distance(average_measurements: List<AverageSignalStrength>, Rooms: List<Room>): String {
+        """
+            bierze to pod uwage jeden router - powinno brac wszystkie i pozniej znajdowac przy nich minimalna wartosc
+        """.trimIndent()
+        var min = TempMin("0", 1000000.0)
+        for(average_measurement in average_measurements) {
+            for(room in Rooms){
+                for(router in room.routers){
+                    if(router.name == average_measurement.bssid){
+                        var temp = abs(average_measurement.average_signal_level - router.signal_strength)
+                        if(temp < min.min){
+                            min.room_name = room.name;
+                            min.min = temp;
+                            Log.d("TestData", String.format("room_name: %s, min %s", min.room_name, min.min));
+                        }
                     }
                 }
             }
         }
+
         return min.room_name;
     }
 }

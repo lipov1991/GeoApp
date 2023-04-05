@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoapp.R
+import com.example.geoapp.domain.utils.AverageSignalStrength
 import com.example.geoapp.domain.utils.LocationHandler
 import com.example.geoapp.domain.utils.Router
 import com.example.geoapp.ui.auth.AuthFragment
@@ -29,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         Log.d("TestData", String.format("Sorted Fingerprints: %s", obj.fingerprints));
 
         Log.d("TestData", String.format("Average Fingerprints: %s", obj.get_average_router_per_4_directions()));
-        var grouped_routers: List<Router> = obj.get_average_router_per_4_directions();
-
-        Log.d("TestData", String.format("AverageSignalStrengh: %s", obj.create_AverageSignalStrength(grouped_routers)));
+        var grouped_routers: List<AverageSignalStrength> = obj.get_average_router_per_4_directions();
+        var closest_room: String = obj.calculate_distance(grouped_routers, TestData().get_testRooms())
+        Log.d("TestData", String.format("Najblizszy pokój: %s", closest_room));
 
     }
 }
