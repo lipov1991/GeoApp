@@ -31,6 +31,9 @@ class LocationHandler(
     val pointsFingerprints: List<PointFingerprints>
 ) {
     var fingerprints: MutableList<Router> = mutableListOf();
+    init {
+        this.add_fingerprints_from_one_direction(pointsFingerprints)
+    }
 
     //TODO grupowanie pomiarów
     //Co kazde klikniecie dostajemy pomiary do wszystkich routerów z danego kierunku, np. north
@@ -75,6 +78,44 @@ class LocationHandler(
         """.trimIndent()
         this.fingerprints = this.fingerprints.sortedWith(compareBy {it.name}).toMutableList();
     }
+
+    fun get_average_router_per_4_directions(): List<Router> {
+        """
+            funkcja do wyliczenia sredniej dla routerów. 
+            Aby działała trzeba wczytać dane a następnie je posortować
+            dane musza zawierac po 4 kierunki dla routerów
+            dane musza prezentowac sie nastepujaco:
+            Router(router1, 1.0)
+            Router(router1, 4.0)
+            Router(router1, 2.0)
+            Router(router1, 5.0)
+            Router(router2, 1.0)
+            Router(router2, 11.0)
+            Router(router2, 41.0)
+            Router(router2, 14.0)
+        """.trimIndent()
+        val result = mutableListOf<Router>()
+        var sum = 0.0
+        var count = 0
+
+        for (i in this.fingerprints.indices) {
+            sum += this.fingerprints[i].signal_strength
+            count++
+
+            if (count == 4) {
+                result.add(Router(name = this.fingerprints[i].name, signal_strength = sum / 4))
+                sum = 0.0
+                count = 0
+            }
+        }
+
+//        if (count > 0) {
+//            result.add(sum / count)
+//        }
+
+        return result
+    }
+
 
     fun get_average_router_signal(routers: List<Router>): Double {
         """

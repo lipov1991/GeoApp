@@ -22,10 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         var test = TestData();
         var obj = LocationHandler(test.get_Fingerprints(), test.get_PointFingerprints())
-        obj.add_fingerprints_from_one_direction(test.get_PointFingerprints())
         Log.d("TestData", String.format("Not sorted fingerprints: %s", obj.fingerprints));
 
         obj.sort_fingerprints();
         Log.d("TestData", String.format("Sorted Fingerprints: %s", obj.fingerprints));
+
+        Log.d("TestData", String.format("Average Fingerprints: %s", obj.get_average_router_per_4_directions()));
+
     }
 }
