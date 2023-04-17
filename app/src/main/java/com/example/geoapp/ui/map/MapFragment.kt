@@ -29,7 +29,7 @@ class MapFragment : Fragment() {
     // po konsultacjach
 
     private val floorLevels = listOf(
-        Floor("Piętro 0", false, "f19"),
+        Floor("Piętro 0", true, "f19"),
         Floor("Piętro 1", false, "f2"),
         Floor("Piętro 2", false, "f36"),
         Floor("Piętro 3", false, "f48"),
@@ -55,7 +55,9 @@ class MapFragment : Fragment() {
 //        loadFeatureServiceURL()
         // tutaj sie psuje
 //        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
-
+        // domyslne wyswietlanie pietra 1
+        loadFeatureServiceURL(floorLevels[1].featureLayerUrl)
+        // wyswietlanie warstwy wektorowej po kliknieciu w przycisk
         view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter = FloorAdapter(floorLevels) {
                 featureLayerUrl: String -> loadFeatureServiceURL(featureLayerUrl) }
 
