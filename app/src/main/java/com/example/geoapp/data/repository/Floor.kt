@@ -3,7 +3,7 @@ package com.example.geoapp.data.repository
 data class Floor(
     val name: String,
     val isActive: Boolean = false,
-    val fratureLayerUrl: String
+    val featureLayerUrl: String
 
 
 )

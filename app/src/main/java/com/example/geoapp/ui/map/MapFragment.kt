@@ -21,6 +21,7 @@ import com.esri.arcgisruntime.mapping.Viewpoint
 import com.esri.arcgisruntime.mapping.view.MapView
 import com.esri.arcgisruntime.ogc.wms.WmsService
 import com.example.geoapp.data.repository.Floor
+import kotlin.math.floor
 
 
 class MapFragment : Fragment() {
@@ -28,10 +29,11 @@ class MapFragment : Fragment() {
     // po konsultacjach
 
     private val floorLevels = listOf(
-        Floor("Piętro 1", true, "url:pietro_1"),
-        Floor("Piętro 2", false, "url:pietro_2"),
-        Floor("Piętro 3", false, "url:pietro_3"),
-        Floor("Piętro 4", false, "url:pietro_4")
+        Floor("Piętro 0", false, "f19"),
+        Floor("Piętro 1", false, "f2"),
+        Floor("Piętro 2", false, "f36"),
+        Floor("Piętro 3", false, "f48"),
+        Floor("Piętro 4", false, "f5")
 
     )
 
@@ -50,10 +52,12 @@ class MapFragment : Fragment() {
         //viewModel.locateUser()
         setApiKeyForApp()
         setupMap()
-        loadFeatureServiceURL()
+//        loadFeatureServiceURL()
         // tutaj sie psuje
-        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
+//        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
 
+        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter = FloorAdapter(floorLevels) {
+                featureLayerUrl: String -> loadFeatureServiceURL(featureLayerUrl) }
 
         //binding?.floorLeveLSelectionList?.adapter = FloorAdapter(floorLevels)
 
@@ -106,21 +110,19 @@ class MapFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun loadFeatureServiceURL() {
+    private fun loadFeatureServiceURL(featureLayerURL: String) {
         // initialize the service feature table using a URL
         val serviceFeatureTable =
-            ServiceFeatureTable(resources.getString(R.string.pietro2_pomieszczenia))
+            ServiceFeatureTable("https://arcgis.cenagis.edu.pl/server/rest/services/SION2_Topo_MV/sion2_wms_topo_GG_$featureLayerURL/MapServer/5")
         // create a feature layer with the feature table
         val featureLayer = FeatureLayer(serviceFeatureTable)
+        // clear active feature layer
+        view?.findViewById<MapView>(R.id.mapView)?.map?.operationalLayers?.clear()
         // set the feature layer on the map
         view?.findViewById<MapView>(R.id.mapView)?.map?.operationalLayers?.add(featureLayer)
     }
 
     private fun setApiKeyForApp() {
-        // set your API key
-        // Note: it is not best practice to store API keys in source code. The API key is referenced
-        // here for the convenience of this tutorial.
-
         ArcGISRuntimeEnvironment.setApiKey(getString(R.string.api))
 
     }
