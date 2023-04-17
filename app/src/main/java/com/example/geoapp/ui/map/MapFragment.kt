@@ -1,5 +1,6 @@
 package com.example.geoapp.ui.map
 
+
 import android.icu.text.StringSearch
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geoapp.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.example.geoapp.data.repository.buildingrepository
 
 
+
+// importy i wszystko co z arcgisem do pliku arcgis utils!!!
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment
 import com.esri.arcgisruntime.mapping.ArcGISMap
 import com.esri.arcgisruntime.mapping.BasemapStyle
@@ -24,23 +28,12 @@ import com.example.geoapp.data.repository.Floor
 
 class MapFragment : Fragment() {
 
-    // po konsultacjach
-
-    private val floorLevels = listOf(
-        Floor("Piętro 1", true, "url:pietro_1"),
-        Floor("Piętro 2", false, "url:pietro_2"),
-        Floor("Piętro 3", false, "url:pietro_3"),
-        Floor("Piętro 4", false, "url:pietro_4")
-
-    )
-
     val mapView: MapView? = null
 
     // wstrzykiwanie viemodela (on jest do logiki biznesowej)
     private val viewModel: MapViewModel by viewModel()
 
 
-    /// tutaj podmienic fragment_login na xml'a, jego stworzyć (map_fragment),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_map, container, false)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,30 +42,13 @@ class MapFragment : Fragment() {
         //viewModel.locateUser()
         setApiKeyForApp()
         setupMap()
-
-        // tutaj sie psuje
-        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorLevels)
-
-
-        //binding?.floorLeveLSelectionList?.adapter = FloorAdapter(floorLevels)
-
-        setupList()
-
+        val floorsTry = buildingrepository()
+        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter= FloorAdapter(floorsTry.getFloors())
 
     }
 
-    private fun setupList(){
-        val data = listOf("pietro 1", "pietro 2", "pietro 3", "pietro 4")
 
-
-
-
-    }
     private fun setupMap() {
-
-
-
-
 
         // create a map with the BasemapStyle streets
         val map = ArcGISMap(BasemapStyle.ARCGIS_TOPOGRAPHIC)
@@ -84,11 +60,7 @@ class MapFragment : Fragment() {
         // set the viewpoint, Viewpoint(latitude, longitude, scale)
         mapView?.setViewpoint(Viewpoint(52.2205593, 21.0101898, 5000.0))
 
-
-
     }
-
-
 
     override fun onPause() {
         mapView?.pause()
@@ -109,7 +81,6 @@ class MapFragment : Fragment() {
         // set your API key
         // Note: it is not best practice to store API keys in source code. The API key is referenced
         // here for the convenience of this tutorial.
-
         ArcGISRuntimeEnvironment.setApiKey(getString(R.string.api))
 
     }
