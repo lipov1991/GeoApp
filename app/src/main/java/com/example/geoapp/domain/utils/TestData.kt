@@ -79,16 +79,10 @@ class TestData {
         PointFingerprints("Router_3_3", 10.0, 3),
     )
     fun get_PointFingerprints(): List<PointFingerprints> {
-//        return listOf(testPointFingerprint0, testPointFingerprint1, testPointFingerprint2, testPointFingerprint3)
         return listOf(testPointFingerprint0, testPointFingerprint1, testPointFingerprint2, testPointFingerprint3).flatten()
     }
 
     fun get_Fingerprints(): List<Fingerprint> {
         return testFingerprint;
     }
-
-    fun get_testRooms(): List<Room> {
-        return testRooms;
-    }
-
 }
