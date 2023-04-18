@@ -75,7 +75,7 @@ class LocationHandler(
     }
 
     fun calculateDistance(average_measurements: List<PointFingerprints>, Routers: List<Router>): String {
-        val min = TempMin("0", 1000000.0)
+        val min = TempMin("0", Double.MAX_VALUE)
         for(average_measurement in average_measurements) {
             for(router in Routers){
                 if(router.name == average_measurement.bssid){
