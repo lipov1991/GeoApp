@@ -13,24 +13,6 @@ class TestData {
         Fingerprint("Router_3_3", 73.2, "room_3", 0)
     )
 
-    private val testRooms: List<Room> = listOf(
-        Room("room_1", listOf(
-            Router("Router_1_1", 95.0),
-            Router("Router_1_2", 65.0),
-            Router("Router_1_3", 80.0),
-        )),
-        Room("room_2", listOf(
-            Router("Router_2_1", 60.0),
-            Router("Router_2_2", 64.0),
-            Router("Router_2_3", 84.0),
-        )),
-        Room("room_3", listOf(
-            Router("Router_3_1", 70.0),
-            Router("Router_3_2", 80.0),
-            Router("Router_3_3", 73.2),
-        ))
-    )
-
     private val testPointFingerprint0: List<PointFingerprints> = listOf(
         PointFingerprints("Router_1_1", 17.0, 0),
         PointFingerprints("Router_1_2", 14.0, 0),
@@ -78,11 +60,11 @@ class TestData {
         PointFingerprints("Router_3_2", 13.0, 3),
         PointFingerprints("Router_3_3", 10.0, 3),
     )
-    fun get_PointFingerprints(): List<PointFingerprints> {
+    fun getPointfingerprints(): List<PointFingerprints> {
         return listOf(testPointFingerprint0, testPointFingerprint1, testPointFingerprint2, testPointFingerprint3).flatten()
     }
 
-    fun get_Fingerprints(): List<Fingerprint> {
-        return testFingerprint;
+    fun getFingerprints(): List<Fingerprint> {
+        return testFingerprint
     }
 }

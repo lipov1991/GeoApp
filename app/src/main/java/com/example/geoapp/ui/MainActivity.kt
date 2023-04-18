@@ -21,13 +21,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, AuthFragment()).commit()
 
-        var test = TestData()
-        var obj = LocationHandler(test.get_Fingerprints(), test.get_PointFingerprints())
+        val test = TestData()
+        val obj = LocationHandler(test.getFingerprints(), test.getPointfingerprints())
 
-        obj.sort_fingerprints()
-        var grouped_routers: List<PointFingerprints> = obj.get_average_router_per_4_directions()
-        var closest_room: String = obj.calculate_distance(grouped_routers, obj.rooms)
-        Log.d("TestData", String.format("Najblizszy pokój: %s", closest_room));
+        obj.sortFingerprints()
+        val groupedRouters: List<PointFingerprints> = obj.getAverageRouterPer4Directions()
+        val closestRoom: String = obj.calculateDistance(groupedRouters, obj.routers)
+        Log.d("TestData", String.format("Najblizszy pokój: %s", closestRoom))
 
     }
 }
