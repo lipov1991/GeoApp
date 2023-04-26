@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="EKRAN LOGOWANIA" />
+        android:layout_width="wrap_content"
+        android:text="Google sign in"
+        android:id="@+id/btngoogle" />
 
 </FrameLayout>
