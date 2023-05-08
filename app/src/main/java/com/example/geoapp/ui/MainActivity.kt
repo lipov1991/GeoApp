@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoapp.R
 import com.example.geoapp.databinding.ActivityAuthBinding
-import com.example.geoapp.ui.auth.AuthFragment
+import com.example.geoapp.ui.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityAuthBinding
@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_auth)
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, AuthFragment())
-            .commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, MapFragment()).commit()
     }
 }
