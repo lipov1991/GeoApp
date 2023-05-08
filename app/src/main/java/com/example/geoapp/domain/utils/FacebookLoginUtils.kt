@@ -50,7 +50,7 @@ class FacebookLoginUtils : FacebookCallback<LoginResult> {
                 }
                 Log.d(TAG, "User info: email: $email; name: $name; error: ${response?.error}")
                 val fbUser = FbUser(name, email)
-                // TODO emit data ...
+                _fbUserLiveData.value = fbUser
             }
         val parameters = Bundle()
         parameters.putString("fields", "id,name,email")
