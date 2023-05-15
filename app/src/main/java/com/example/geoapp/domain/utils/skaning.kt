@@ -1,15 +1,19 @@
 package com.example.geoapp.domain.utils
 
 import android.Manifest
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import androidx.core.app.ActivityCompat
 
-class WifiScanner(private val context: Context) {
+class WifiScanner(
+    private val wifiManager: WifiManager
+) {
 
-    private val wifiManager = context.getSystemService(Context.WIFI_SERVICE) as WifiManager
     private val scanResults = mutableListOf<String>()
     private var isScanning = false
     private var scanStartTime: Long = 0
@@ -19,12 +23,28 @@ class WifiScanner(private val context: Context) {
     }
 
     companion object {
+        const val REQUEST_CODE_SCAN_WIFI_PERMISSIONS = 2
         private const val SCAN_INTERVAL_MS = 5000L
     }
 
 
+    fun startScanningIfHasPermissions(
+        activity: Activity
+    ) {
+        if (!permissionGranted(Manifest.permission.ACCESS_FINE_LOCATION, activity) ||
+            !permissionGranted(Manifest.permission.ACCESS_WIFI_STATE, activity) ||
+            !permissionGranted(Manifest.permission.CHANGE_WIFI_STATE, activity)
+        ) {
+            activity.requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CHANGE_WIFI_STATE),
+                REQUEST_CODE_SCAN_WIFI_PERMISSIONS
+            )
+            return
+        }
+        startScanning()
+    }
 
-    fun startScan() {
+    fun startScanning() {
         if (!isScanning) {
             isScanning = true
             scanStartTime = System.currentTimeMillis()
@@ -32,26 +52,22 @@ class WifiScanner(private val context: Context) {
         }
     }
 
+    private fun permissionGranted(
+        permissionName: String,
+        activity: Activity
+    ): Boolean = ActivityCompat.checkSelfPermission(activity, permissionName) == PackageManager.PERMISSION_GRANTED
+
+    @SuppressLint("MissingPermission")
     private fun startScanInternal() {
         wifiManager.startScan()
         scanResults.clear()
         // nie wiemy tu
-        val results =
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    Activity#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return
-            }
-            wifiManager.scanResults
+        val results = wifiManager.scanResults
 
         // do tego
         for (result in results) {
-            scanResults.add(result.SSID)
+            Log.d("BSSID", result.BSSID)
+            scanResults.add(result.BSSID)
         }
         isScanning = false
         val elapsed = System.currentTimeMillis() - scanStartTime
