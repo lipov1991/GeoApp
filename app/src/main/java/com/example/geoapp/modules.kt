@@ -1,6 +1,7 @@
 package com.example.geoapp
 
 import com.example.geoapp.data.repository.AuthRepository
+import com.example.geoapp.domain.utils.FirebaseUtils
 import com.example.geoapp.domain.utils.FacebookLoginUtils
 import com.example.geoapp.domain.utils.PositioningUtils
 import com.example.geoapp.ui.MainViewModel
@@ -11,8 +12,8 @@ import org.koin.dsl.module
 
 
 val viewModelsModule = module {
+    viewModel { AuthViewModel(FirebaseUtils = get()) }
     viewModel { MainViewModel(facebookLoginUtils = get()) }
-    viewModel { AuthViewModel(authRepository = get()) }
     viewModel { MapViewModel(positioningUtils = get()) }
 }
 
@@ -23,4 +24,5 @@ val repositoriesModule = module {
 val utilsModule = module {
     single { FacebookLoginUtils() }
     single { PositioningUtils() }
+    single { FirebaseUtils()}
 }
