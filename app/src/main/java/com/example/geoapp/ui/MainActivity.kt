@@ -1,4 +1,5 @@
 package com.example.geoapp.ui
+package com.example.geoapp.domain
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
