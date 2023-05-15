@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.geoapp.R
-import com.example.geoapp.domain.utils.PointFingerprints
-import com.example.geoapp.domain.utils.LocationHandler
-import com.example.geoapp.ui.auth.AuthFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.example.geoapp.domain.utils.TestData
 import com.example.geoapp.databinding.ActivityAuthBinding
+import com.example.geoapp.domain.utils.LocationHandler
+import com.example.geoapp.domain.utils.PointFingerprints
+import com.example.geoapp.domain.utils.TestData
+import com.example.geoapp.ui.auth.AuthFragment
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityAuthBinding
+    // TODO use below code instead of LocationHandler initialization
+    //private val obj: LocationHandler by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
