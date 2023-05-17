@@ -1,12 +1,16 @@
 package com.example.geoapp.ui.auth
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.geoapp.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.example.geoapp.data.repository.UserStatus
 import com.example.geoapp.databinding.FragmentLoginBinding
 import com.example.geoapp.ui.map.MapFragment
@@ -14,10 +18,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AuthFragment : Fragment() {
     private val viewModel: AuthViewModel by viewModel()
-
+    
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            viewModel.handleLoginResult(task)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +45,16 @@ class AuthFragment : Fragment() {
         binding.LoginButton.setOnClickListener {
             val email = binding.editTextTextEmailAddress.text.toString()
             viewModel.signin(email)
+        }
+
+        activity?.let{
+            viewModel.setupFirebase(it)
+        }
+
+        view.findViewById<Button>(R.id.Google_Button).setOnClickListener {
+            viewModel.signInIntent?.let {
+                launcher.launch(it)
+            }
         }
     }
 

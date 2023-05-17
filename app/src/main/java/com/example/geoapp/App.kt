@@ -1,6 +1,7 @@
 package com.example.geoapp
 
 import android.app.Application
+import org.koin.android.ext.koin.androidContext
 import com.example.geoapp.domain.utils.Fingerprint
 import com.example.geoapp.domain.utils.PointFingerprints
 import org.koin.core.context.GlobalContext.startKoin
@@ -12,7 +13,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            modules(viewModelsModule, repositoriesModule, utilsModule)
+            androidContext(this@App)
+            modules(listOf(viewModelsModule, repositoriesModule, utilsModule))
         }
 
         LocationHandler(

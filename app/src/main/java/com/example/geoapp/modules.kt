@@ -18,5 +18,5 @@ val repositoriesModule = module {
 }
 
 val utilsModule = module {
-    single { FirebaseUtils() }
+    single { FirebaseUtils(context = get()) }
 }
