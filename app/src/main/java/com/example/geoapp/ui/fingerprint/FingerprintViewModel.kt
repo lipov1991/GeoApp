@@ -18,7 +18,7 @@ class FingerprintViewModel(
     }
 
     fun deleteSignal() = viewModelScope.launch(Dispatchers.IO) {
-        val signal = Signal(0, "jakies ssid", 100)
+        val signal = Signal(1, "jakies ssid", 100)
         fingerprintRepository.deleteSignal(signal)
     }
 
