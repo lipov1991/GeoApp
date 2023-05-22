@@ -6,10 +6,11 @@ import com.esri.arcgisruntime.mapping.BasemapStyle
 import com.esri.arcgisruntime.mapping.Viewpoint
 import com.esri.arcgisruntime.mapping.view.MapView
 import com.esri.arcgisruntime.ogc.wms.WmsService
-import com.example.geoapp.R
 
 
-class EsriMap {
+class EsriMap (
+    context:refacContext
+        ){
     val mapView: MapView? = null
 
     fun setupMap() {
@@ -33,11 +34,5 @@ class EsriMap {
         ArcGISRuntimeEnvironment.setApiKey(getString(R.string.api))
 
     }
-
-
-
-
-
-
 
 }
