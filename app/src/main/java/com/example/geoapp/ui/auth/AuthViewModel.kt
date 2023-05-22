@@ -1,17 +1,21 @@
 package com.example.geoapp.ui.auth
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.geoapp.data.repository.UserStatus
-import com.example.geoapp.domain.utils.FirebaseUtils
+import com.example.geoapp.data.repository.AuthRepository
 
 
-class AuthViewModel(private val FirebaseUtils: FirebaseUtils) : ViewModel() {
+// Tutaj będzie logika związana z AuthFragment.
+class AuthViewModel(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
-    val userStatusLiveData: LiveData<UserStatus> = FirebaseUtils.userStatusLiveData
+    var userName = ""
 
-    fun signin(email: String) = FirebaseUtils.createAccount(email)
+    fun signIn() {
+        // TODO
+    }
 
-    fun issignin() = FirebaseUtils.issignin()
-
+    fun signUp() {
+        // TODO
+    }
 }
