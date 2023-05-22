@@ -20,21 +20,21 @@ data class PointFingerprints(val bssid: String, val signal_level: Double, val di
 
 data class TempMin(var room_name: String, var min: Double)
 
-class LocationHandler(
-    private val historicFingerprints: List<Fingerprint>,
-    pointsFingerprints: List<PointFingerprints>
-) {
-
+class LocationHandler
+{
     private var fingerprints: MutableList<PointFingerprints> = mutableListOf()
     var routers: List<Router> = listOf()
+    private val test = TestData()
 
     init {
-        this.addFingerprintsFromOneDirection(pointsFingerprints)
+        this.addFingerprintsFromOneDirection(test.getPointfingerprints())
         this.loadHistoricFingerprints()
     }
 
     private fun loadHistoricFingerprints() {
         val routersTmp: MutableList<Router> = mutableListOf()
+
+        val historicFingerprints = test.getFingerprints()
 
         for (historicFingerprint in historicFingerprints) {
             if (!routersTmp.contains(

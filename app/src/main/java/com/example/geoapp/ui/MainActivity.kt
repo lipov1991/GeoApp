@@ -7,23 +7,19 @@ import com.example.geoapp.R
 import com.example.geoapp.databinding.ActivityAuthBinding
 import com.example.geoapp.domain.utils.LocationHandler
 import com.example.geoapp.domain.utils.PointFingerprints
-import com.example.geoapp.domain.utils.TestData
 import com.example.geoapp.ui.auth.AuthFragment
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAuthBinding
-    // TODO use below code instead of LocationHandler initialization
-    //private val obj: LocationHandler by inject()
+    private val obj: LocationHandler by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_auth)
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, AuthFragment()).commit()
-
-        val test = TestData()
-        val obj = LocationHandler(test.getFingerprints(), test.getPointfingerprints())
 
         obj.sortFingerprints()
         val groupedRouters: List<PointFingerprints> = obj.getAverageRouterPer4Directions()
