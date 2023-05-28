@@ -6,10 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.geoapp.domain.model.FbUser
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.GraphRequest
+import com.facebook.*
 import com.facebook.login.LoginResult
 
 
@@ -24,8 +21,10 @@ class FacebookLoginUtils : FacebookCallback<LoginResult> {
         get() = _fbUserLiveData
     private var _fbUserLiveData = MutableLiveData<FbUser>()
 
+
     override fun onCancel() {
         Log.d(TAG, "Login canceled")
+
     }
 
     override fun onError(error: FacebookException) {
@@ -49,8 +48,17 @@ class FacebookLoginUtils : FacebookCallback<LoginResult> {
                     return@newMeRequest
                 }
                 Log.d(TAG, "User info: email: $email; name: $name; error: ${response?.error}")
-                val fbUser = FbUser(name, email)
-                _fbUserLiveData.value = fbUser
+                val newUser = FbUser(name, email, result.accessToken)
+
+//                val newUser : FbUser
+//                val loggedIn = AccessToken.getCurrentAccessToken() == null
+//                if (loggedIn) {
+//                    newUser = FbUser("Jan", "jan.kowalski@gmail.com", null)
+//                }
+//                else{
+//                    newUser = FbUser(name, email, AccessToken.getCurrentAccessToken())
+//                }
+                _fbUserLiveData.value = newUser
             }
         val parameters = Bundle()
         parameters.putString("fields", "id,name,email")

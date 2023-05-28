@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.geoapp.R
 import com.example.geoapp.databinding.ActivityAuthBinding
 import com.example.geoapp.domain.model.FbUser
+import com.facebook.login.LoginManager
 import com.facebook.login.widget.LoginButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.security.MessageDigest
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         super.onCreate(savedInstanceState)
+        LoginManager.getInstance().logOut()
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_auth)
         val loginButton: LoginButton = findViewById(R.id.login_button)
@@ -45,10 +47,14 @@ class MainActivity : AppCompatActivity() {
         val usernameTextView: TextView = findViewById(R.id.username_text_view)
         val emailTextView: TextView = findViewById(R.id.email)
         val fbObserver = Observer<FbUser> { newUser ->
+
             usernameTextView.text = newUser.name
             emailTextView.text = newUser.email
+            Log.d("accestoken:", newUser.token.toString())
         }
         viewModel.fbUserLiveData.observe(this, fbObserver)
     }
+
+
 }
 
