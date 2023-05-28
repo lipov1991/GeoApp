@@ -14,5 +14,4 @@ class App : Application() {
             modules(viewModelsModule, repositoriesModule, utilsModule)
         }
     }
-
 }

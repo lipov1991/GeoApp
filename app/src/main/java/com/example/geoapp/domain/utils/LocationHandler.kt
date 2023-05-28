@@ -1,5 +1,6 @@
 package com.example.geoapp.domain.utils
 
+import com.example.geoapp.data.repository.TestData
 import kotlin.math.abs
 
 
@@ -20,14 +21,13 @@ data class PointFingerprints(val bssid: String, val signal_level: Double, val di
 
 data class TempMin(var room_name: String, var min: Double)
 
-class LocationHandler
-{
+class LocationHandler {
     private var fingerprints: MutableList<PointFingerprints> = mutableListOf()
     var routers: List<Router> = listOf()
     private val test = TestData()
 
     init {
-        this.addFingerprintsFromOneDirection(test.getPointfingerprints())
+        this.addFingerprintsFromOneDirection(test.getPointFingerprints())
         this.loadHistoricFingerprints()
     }
 
@@ -69,11 +69,9 @@ class LocationHandler
         val result = mutableListOf<PointFingerprints>()
         var sum = 0.0
         var count = 0
-
         for (i in this.fingerprints.indices) {
             sum += this.fingerprints[i].signal_level
             count++
-
             if (count == 4) {
                 result.add(PointFingerprints(this.fingerprints[i].bssid, sum / 4))
                 sum = 0.0
@@ -96,7 +94,6 @@ class LocationHandler
                 }
             }
         }
-
         return min.room_name
     }
 }

@@ -1,9 +1,6 @@
-package com.example.geoapp.data.repository
-
+package com.example.geoapp.data.repository.fingerprint
 
 import android.util.Log
-import com.example.geoapp.data.repository.db.signal.Signal
-import com.example.geoapp.data.repository.db.signal.SignalDatabase
 
 
 class FingerprintRepository(
@@ -13,7 +10,8 @@ class FingerprintRepository(
     companion object {
         private const val TAG = "pw.FingRepo"
     }
-    suspend fun saveSignal(signal: Signal) {
+
+    suspend fun saveSignal(signal: SignalEntity) {
         try {
             signalDatabase.signalDao().save(signal)
         } catch (exception: Exception) {
@@ -21,7 +19,7 @@ class FingerprintRepository(
         }
     }
 
-    suspend fun deleteSignal(signal: Signal) {
+    suspend fun deleteSignal(signal: SignalEntity) {
         try {
             signalDatabase.signalDao().delete(signal)
         } catch (exception: Exception) {
@@ -29,7 +27,7 @@ class FingerprintRepository(
         }
     }
 
-    suspend fun getAllSignal(): List<Signal>? {
+    suspend fun getAllSignal(): List<SignalEntity>? {
         return try {
             signalDatabase.signalDao().getAll()
         } catch (exception: Exception) {

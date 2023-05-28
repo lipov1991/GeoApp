@@ -1,7 +1,12 @@
-package com.example.geoapp.domain.utils
+package com.example.geoapp.data.repository
+
+import com.example.geoapp.domain.utils.Fingerprint
+import com.example.geoapp.domain.utils.PointFingerprints
+
 
 class TestData {
-    val testFingerprint: List<Fingerprint> = listOf(
+
+    private val testFingerprint: List<Fingerprint> = listOf(
         Fingerprint("Router_1_1", 95.0, "room_1", 0),
         Fingerprint("Router_1_2", 65.0, "room_1", 0),
         Fingerprint("Router_1_3", 80.0, "room_1", 0),
@@ -60,7 +65,7 @@ class TestData {
         PointFingerprints("Router_3_2", 13.0, 3),
         PointFingerprints("Router_3_3", 10.0, 3),
     )
-    fun getPointfingerprints(): List<PointFingerprints> {
+    fun getPointFingerprints(): List<PointFingerprints> {
         return listOf(testPointFingerprint0, testPointFingerprint1, testPointFingerprint2, testPointFingerprint3).flatten()
     }
 

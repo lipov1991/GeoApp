@@ -1,12 +1,15 @@
-package com.example.geoapp.data.repository.db.signal
+package com.example.geoapp.data.repository.fingerprint
+
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Signal::class], version = 1)
+
+@Database(entities = [SignalEntity::class], version = 1)
 abstract class SignalDatabase : RoomDatabase() {
+
     abstract fun signalDao(): SignalDao
 
     companion object {
@@ -27,7 +30,6 @@ abstract class SignalDatabase : RoomDatabase() {
                 INSTANCE = instance
                 return instance
             }
-
         }
     }
 }
