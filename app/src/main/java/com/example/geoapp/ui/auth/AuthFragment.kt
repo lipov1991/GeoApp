@@ -38,7 +38,7 @@ class AuthFragment : Fragment() {
     }
 
     private fun observeUserStatusLiveData() {
-        viewModel.userStatusLiveData.observe(::getLifecycle) {
+        viewModel.userStatusLiveData.observe(this::getLifecycle) {
             when (it) {
                 UserStatus.LOGGED_IN -> {
                     Toast.makeText(requireContext(), "Pomyślnie zalogowano", Toast.LENGTH_SHORT)

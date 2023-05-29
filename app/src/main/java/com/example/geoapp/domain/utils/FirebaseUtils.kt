@@ -12,6 +12,7 @@ class FirebaseUtils {
     private val auth = Firebase.auth
     val userStatusLiveData: LiveData<UserStatus>
         get() = _userStatusLiveData
+
     private var _userStatusLiveData = MutableLiveData<UserStatus>()
 
     fun issignin(): Boolean {
