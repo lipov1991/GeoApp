@@ -33,8 +33,7 @@ class MapFragment : Fragment() {
         val mapView = view?.findViewById<MapView>(R.id.mapView)
         mapView?.map = viewModel.arcGISMap
         // set the viewpoint, Viewpoint(latitude, longitude, scale)
-        // TODO Move below values to consts..
-        mapView?.setViewpoint(Viewpoint(52.22065508457322, 21.009935693065543, 2000.0))
+        mapView?.setViewpoint(viewModel.viewpoint)
     }
 
     override fun onPause() {
