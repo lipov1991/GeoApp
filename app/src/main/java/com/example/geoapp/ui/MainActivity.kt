@@ -1,5 +1,6 @@
 package com.example.geoapp.ui
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
@@ -36,25 +37,36 @@ class MainActivity : AppCompatActivity() {
         } catch (e: PackageManager.NameNotFoundException) {
         } catch (e: NoSuchAlgorithmException) {
         }
+        val sharedPreference =  getSharedPreferences("fbUsers", Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
 
         super.onCreate(savedInstanceState)
-        LoginManager.getInstance().logOut()
+        //LoginManager.getInstance().logOut()
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_auth)
         val loginButton: LoginButton = findViewById(R.id.login_button)
         loginButton.setReadPermissions("email")
         loginButton.registerCallback(viewModel.callbackManager, viewModel.fbLoginCallback)
+        //loginButton.performlogut() performlogout() is a protected method!
         val usernameTextView: TextView = findViewById(R.id.username_text_view)
         val emailTextView: TextView = findViewById(R.id.email)
-        val fbObserver = Observer<FbUser> { newUser ->
+        //shared preferences
+        if (sharedPreference.contains("username")){
+            usernameTextView.text = sharedPreference.getString("username","")
+            emailTextView.text = sharedPreference.getString("mail","")
+            editor.clear()
+        }
 
+        val fbObserver = Observer<FbUser> { newUser ->
             usernameTextView.text = newUser.name
             emailTextView.text = newUser.email
-            Log.d("accestoken:", newUser.token.toString())
+            //Log.d("accestoken:", newUser.token.toString())
+            editor.putString("username",newUser.name)
+            editor.putString("mail",newUser.email)
+            editor.apply()
         }
         viewModel.fbUserLiveData.observe(this, fbObserver)
     }
-
 
 }
 

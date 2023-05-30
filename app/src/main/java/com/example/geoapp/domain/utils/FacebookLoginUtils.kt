@@ -9,7 +9,6 @@ import com.example.geoapp.domain.model.FbUser
 import com.facebook.*
 import com.facebook.login.LoginResult
 
-
 class FacebookLoginUtils : FacebookCallback<LoginResult> {
 
     companion object {
@@ -48,16 +47,9 @@ class FacebookLoginUtils : FacebookCallback<LoginResult> {
                     return@newMeRequest
                 }
                 Log.d(TAG, "User info: email: $email; name: $name; error: ${response?.error}")
-                val newUser = FbUser(name, email, result.accessToken)
 
-//                val newUser : FbUser
-//                val loggedIn = AccessToken.getCurrentAccessToken() == null
-//                if (loggedIn) {
-//                    newUser = FbUser("Jan", "jan.kowalski@gmail.com", null)
-//                }
-//                else{
-//                    newUser = FbUser(name, email, AccessToken.getCurrentAccessToken())
-//                }
+                //val newUser = FbUser(name, email, result.accessToken)
+                val newUser = FbUser(name, email)
                 _fbUserLiveData.value = newUser
             }
         val parameters = Bundle()
