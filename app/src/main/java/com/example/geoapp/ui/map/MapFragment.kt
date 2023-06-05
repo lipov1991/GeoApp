@@ -13,7 +13,6 @@ import com.example.geoapp.R
 import com.example.geoapp.data.repository.buildingrepository
 import com.example.geoapp.domain.utils.EsriMapUtils
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MapFragment : Fragment() {
@@ -21,7 +20,6 @@ class MapFragment : Fragment() {
     private val mapView: MapView? = null
 
     // wstrzykiwanie viemodela (on jest do logiki biznesowej)
-    private val viewModel: MapViewModel by viewModel()
     private val esriMapUtils: EsriMapUtils by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
