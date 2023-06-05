@@ -8,7 +8,7 @@ import com.example.geoapp.R
 import com.example.geoapp.domain.utils.LocationHandler
 import com.example.geoapp.domain.utils.PermissionUtils
 import com.example.geoapp.domain.utils.PointFingerprints
-import com.example.geoapp.ui.fingerprint.FingerprintFragment
+import com.example.geoapp.ui.map.MapFragment
 import org.koin.android.ext.android.inject
 
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, FingerprintFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, MapFragment()).commit()
         permissionUtils.requestPermissionIfNeeded(android.Manifest.permission.ACCESS_COARSE_LOCATION, REQUEST_CODE_LOCATION_PERMISSIONS, this)
         fingerprintTest()
     }
