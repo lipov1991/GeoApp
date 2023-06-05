@@ -2,6 +2,11 @@
     <string name="app_name">GeoApp</string>
     <string name="sign_in">Zaloguj się</string>
     <string name="label_username">Nazwa użytkownika</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu">Opcje stylu mapy</string>
+    <string name="style1">ARCGIS TOPOGRAPHIC</string>
+    <string name="style2">OSM STREETS</string>
+    <string name="style3">ARCGIS TERRAIN</string>
+    <string name="style4">ARCGIS MIDCENTURY</string>
+    <string name="style5">ARCGIS NAVIGATION</string>
 </resources>
