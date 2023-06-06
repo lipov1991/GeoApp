@@ -1,22 +1,30 @@
 package com.example.geoapp
 
-import com.example.geoapp.data.repository.AuthRepository
-import com.example.geoapp.domain.utils.PositioningUtils
-import com.example.geoapp.ui.auth.AuthViewModel
+import com.example.geoapp.data.repository.fingerprint.FingerprintRepository
+import com.example.geoapp.data.repository.fingerprint.SignalDatabase
+import com.example.geoapp.domain.utils.EsriMapUtils
+import com.example.geoapp.domain.utils.LocationHandler
+import com.example.geoapp.domain.utils.PermissionUtils
+import com.example.geoapp.ui.fingerprint.FingerprintViewModel
 import com.example.geoapp.ui.map.MapViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
-val viewModelsModule = module {
-    viewModel { AuthViewModel(authRepository = get()) }
-    viewModel { MapViewModel(positioningUtils = get()) }
-}
-
 val repositoriesModule = module {
-    single { AuthRepository() }
+    single {
+        val db = SignalDatabase.getDatabase(context = get())
+        FingerprintRepository(db)
+    }
 }
 
 val utilsModule = module {
-    single { PositioningUtils() }
+    single { LocationHandler() }
+    single { PermissionUtils() }
+    single { EsriMapUtils() }
+}
+
+val viewModelsModule = module {
+    viewModel { FingerprintViewModel(fingerprintRepository = get()) }
+    viewModel { MapViewModel() }
 }
