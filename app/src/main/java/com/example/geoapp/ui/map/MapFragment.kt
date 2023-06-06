@@ -22,6 +22,8 @@ class MapFragment : Fragment() {
     // wstrzykiwanie viemodela (on jest do logiki biznesowej)
     private val esriMapUtils: EsriMapUtils by inject()
 
+    private val viewModel: MapViewModel by viewModel()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_map, container, false)
 
@@ -29,8 +31,18 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         esriMapUtils.setApiKey()
         setupMap()
-        val floorsTry = buildingrepository()
-        view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter = FloorAdapter(floorsTry.getFloors())
+
+       // val floorsTry = buildingrepository()
+       // view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter = FloorAdapter(floorsTry.getFloors())
+       // viewModel.azimuthInDegrees.observe(::getLifecycle) { azimuthInDegrees ->
+           // val imageview =  view.findViewById<ImageView>(R.id.imgCompas)
+           // val rotateAnimation = RotateAnimation(currentDegree, -azimuthinDegrees, Animation.RELATIVE_TO_SELF,
+            //    0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+           // rotateAnimation.duration = 250
+           // rotateAnimation.fillAfter = true
+           // imageview!!.startAnimation(rotateAnimation)
+            //currentDegree = -azimuthinDegrees
+            //lastUpdatedTime = System.currentTimeMillis()
     }
 
 

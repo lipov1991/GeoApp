@@ -39,6 +39,17 @@
         tools:listitem="@layout/item_floor"
         />
 
+    <ImageView
+        android:id="@+id/compass_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/margin_medium"
+        android:contentDescription="@null"
+        android:src="@mipmap/compass1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="333dp"
+        tools:layout_editor_absoluteY="664dp" />
+
 
 
 
