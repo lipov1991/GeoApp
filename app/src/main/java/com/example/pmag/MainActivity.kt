@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.geoapp.R
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     private var imageview: ImageView? = null
@@ -26,9 +27,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var currentDegree = 0f
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_map)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        imageview = findViewById<ImageView>(R.id.imgCompas)
+        imageview = findViewById(R.id.compass_iv)
         sensormanager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelometerSensor = sensormanager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         magnetometrerSensor = sensormanager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
