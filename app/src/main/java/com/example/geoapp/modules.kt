@@ -8,6 +8,7 @@ import com.example.geoapp.domain.utils.PermissionUtils
 import com.example.geoapp.ui.fingerprint.FingerprintViewModel
 import com.example.geoapp.ui.map.MapViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.scope.get
 import org.koin.dsl.module
 
 
@@ -26,5 +27,5 @@ val utilsModule = module {
 
 val viewModelsModule = module {
     viewModel { FingerprintViewModel(fingerprintRepository = get()) }
-    viewModel { MapViewModel() }
+    viewModel { MapViewModel(compasUtils = get()) }
 }
