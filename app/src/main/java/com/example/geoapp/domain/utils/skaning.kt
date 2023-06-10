@@ -14,7 +14,7 @@ class WifiScanner(
     private val wifiManager: WifiManager
 ) {
 
-    private val scanResults = mutableListOf<String>()
+    private val scanResults = mutableSetOf<String>()
     private var isScanning = false
     private var scanStartTime: Long = 0
 
@@ -27,7 +27,6 @@ class WifiScanner(
         private const val SCAN_INTERVAL_MS = 5000L
     }
 
-
     fun startScanningIfHasPermissions(
         activity: Activity
     ) {
@@ -36,7 +35,11 @@ class WifiScanner(
             !permissionGranted(Manifest.permission.CHANGE_WIFI_STATE, activity)
         ) {
             activity.requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE, Manifest.permission.CHANGE_WIFI_STATE),
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_WIFI_STATE,
+                    Manifest.permission.CHANGE_WIFI_STATE
+                ),
                 REQUEST_CODE_SCAN_WIFI_PERMISSIONS
             )
             return
@@ -60,15 +63,31 @@ class WifiScanner(
     @SuppressLint("MissingPermission")
     private fun startScanInternal() {
         wifiManager.startScan()
-        scanResults.clear()
-        // nie wiemy tu
+
+        // Utwórz nowy zestaw na tymczasowe wyniki skanowania
+        val tempScanResults = mutableSetOf<String>()
+
+        // Pobierz wyniki skanowania
         val results = wifiManager.scanResults
 
-        // do tego
+        //sprawdzam commit
+        Log.d("WifiScanner", "Scan results count: ${results.size}")
+
         for (result in results) {
-            Log.d("BSSID", result.BSSID)
-            scanResults.add(result.BSSID)
+            Log.d("WifiScanner", "BSSID: ${result.BSSID}")
+
+            tempScanResults.add(result.BSSID)
         }
+
+        // Porównaj nowe wyniki ze starszymi wynikami, aby uniknąć powtarzających się wartości
+        val newScanResults = tempScanResults.subtract(scanResults)
+
+        // Wyczyść stare wyniki skanowania
+        scanResults.clear()
+
+        // Dodaj nowe wyniki do ogólnego zestawu wyników
+        scanResults.addAll(newScanResults)
+
         isScanning = false
         val elapsed = System.currentTimeMillis() - scanStartTime
         if (elapsed < SCAN_INTERVAL_MS) {
@@ -77,12 +96,4 @@ class WifiScanner(
             startScanInternal()
         }
     }
-
-    fun getScanResults(): List<String> {
-        return scanResults.toList()
-    }
-
 }
-
-
-
