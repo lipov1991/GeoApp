@@ -2,6 +2,7 @@ package com.example.geoapp.ui.map
 
 
 // importy i wszystko co z arcgisem do pliku arcgis utils!!!
+import android.widget.Button
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +14,23 @@ import com.example.geoapp.R
 import com.example.geoapp.data.repository.buildingrepository
 import com.example.geoapp.domain.utils.EsriMapUtils
 import org.koin.android.ext.android.inject
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 
 
 class MapFragment : Fragment() {
 
     private val mapView: MapView? = null
+    val barcodeLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        viewModel.handleQrCode(result, requireContext())
+    }
 
     // wstrzykiwanie viemodela (on jest do logiki biznesowej)
     private val esriMapUtils: EsriMapUtils by inject()
+    private val viewModel: MapViewModel by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_map, container, false)
@@ -31,6 +41,9 @@ class MapFragment : Fragment() {
         setupMap()
         val floorsTry = buildingrepository()
         view.findViewById<RecyclerView>(R.id.my_recycler_view).adapter = FloorAdapter(floorsTry.getFloors())
+        view.findViewById<Button>(R.id.qr_scanner).setOnClickListener{
+            barcodeLauncher.launch(ScanOptions())
+        }
     }
 
 
