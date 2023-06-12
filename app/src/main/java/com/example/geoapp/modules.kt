@@ -2,6 +2,7 @@ package com.example.geoapp
 
 import com.example.geoapp.data.repository.fingerprint.FingerprintRepository
 import com.example.geoapp.data.repository.fingerprint.SignalDatabase
+import com.example.geoapp.domain.utils.DialogUtils
 import com.example.geoapp.domain.utils.EsriMapUtils
 import com.example.geoapp.domain.utils.LocationHandler
 import com.example.geoapp.domain.utils.PermissionUtils
@@ -22,6 +23,7 @@ val utilsModule = module {
     single { LocationHandler() }
     single { PermissionUtils() }
     single { EsriMapUtils() }
+    single { DialogUtils() }
 }
 
 val viewModelsModule = module {

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GeoApp</string>
+    <string name="test_message">Witaj w aplikacji GeoApp!</string>
     <string name="sign_in">Zaloguj się</string>
     <string name="label_username">Nazwa użytkownika</string>
     <!-- TODO: Remove or change this placeholder text -->
