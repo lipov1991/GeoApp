@@ -34,12 +34,15 @@ class CompasUtils: SensorEventListener {
 
     fun setUpCompas(context: Context) {
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        accelometer = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        magnetometrer = sensorManager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-        sensorManager!!.registerListener(this, accelometer, SensorManager.SENSOR_DELAY_NORMAL)
-        sensorManager!!.registerListener(this, magnetometrer, SensorManager.SENSOR_DELAY_NORMAL)
-        sensorManager!!.unregisterListener(this, accelometer)
-        sensorManager!!.unregisterListener(this, magnetometrer)
+        accelometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        magnetometrer = sensorManager?.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        sensorManager?.registerListener(this, accelometer, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager?.registerListener(this, magnetometrer, SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    fun unregisterlistener(){
+        sensorManager?.unregisterListener(this, accelometer)
+        sensorManager?.unregisterListener(this, magnetometrer)
     }
 
     override fun onSensorChanged(sensorEvent: SensorEvent) {
